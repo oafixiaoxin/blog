@@ -34,7 +34,15 @@
 	    //获取所有的menu_type
 	    public function getAllMenuType ()
 	    {
-		
+			$result = DB::select('SELECT * FROM mantadia_menutype');
+			if ( count($result) != 0 )
+			{
+				return $this->output(Response::SUCCESS, $result);
+			}
+			else
+			{
+				return $this->output(Response::NO_MORE_INFO);
+			}
 	    }
 
 	    
