@@ -50,8 +50,9 @@
 	    public function getMenuItem( $menuTypeId )
 	    {
 //	    	$menu_type_id = $request->input('menuTypeId');
-	    	$result = DB::select('SELECT ta.id,ta.name,ta.price,ta.note,ta.menutypeid,tb.filename FROM mantadia_menuitem ta
+	    	$result = DB::select('SELECT ta.id,ta.name,ta.price,ta.note,tb.filename,tc.name AS menutypename FROM mantadia_menuitem ta
 LEFT JOIN mantadia_image tb ON ta.imageid=tb.id 
+LEFT JOIN mantadia_menutype tc ON ta.menutypeid=tc.id
 WHERE 1=1 AND ta.menutypeid=?
 ORDER BY ta.id ASC', [$menuTypeId]);
 			if ( count($result) != 0 || !isset($result) )
