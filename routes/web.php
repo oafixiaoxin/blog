@@ -24,4 +24,6 @@ $app->group(['prefix' => 'api2/v1'], function($app)
 	$app->get('/getEmptyTables', 'TableController@getEmptyTables');
 	$app->get('/getAllMenuType', 'TableController@getAllMenuType');
 	$app->get('/getMenuItem/{menuTypeId}', 'TableController@getMenuItem');
+	$app->get('/getAllRecommand', 'TableController@getAllRecommand');
+	$app->get('/getRecommandDetail/{id}', 'TableController@getRecommandDetail');
 });

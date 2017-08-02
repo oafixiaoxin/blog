@@ -64,6 +64,36 @@ ORDER BY ta.id ASC', [$menuTypeId]);
 				return $this->output(Response::NO_MORE_INFO);
 			}
 	    }
+	    
+	    
+	    //获取所有推荐的商品
+	    public function getAllRecommand ()
+	    {
+	    	$result = DB::select('SELECT * FROM mantadia_recommendation ORDER BY id ASC');
+	    	if ( count($result) != 0 )
+	    	{
+	    		return $this->output(Response::SUCCESS, $result);
+	    	}
+	    	else
+	    	{
+	    		return $this->output(Response::NO_MORE_INFO);
+	    	}
+	    }
+	    
+	    
+	    //获取推荐商品详情
+	    public function getRecommandDetail ( $id )
+	    {
+	    	$result = DB::select('SELECT * FROM mantadia_recommendation WHERE 1=1 AND `id`=?', [$id]);
+	    	if ( count($result) != 0 )
+	    	{
+	    		return $this->output(Response::SUCCESS, $result);
+	    	}
+	    	else
+	    	{
+	    		return $this->output(Response::NO_MORE_INFO);
+	    	}
+	    }
 
 	    
 	}
