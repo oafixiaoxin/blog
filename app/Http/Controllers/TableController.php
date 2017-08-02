@@ -69,7 +69,9 @@ ORDER BY ta.id ASC', [$menuTypeId]);
 	    //获取所有推荐的商品
 	    public function getAllRecommand ()
 	    {
-	    	$result = DB::select('SELECT * FROM mantadia_recommendation ORDER BY id ASC');
+	    	$result = DB::select('SELECT ta.id,ta.name,ta.price,ta.size,ta.`belong_who`,ta.`belong_area`,ta.`base_info`,tb.filename FROM mantadia_recommendation ta
+left join mantadia_image tb on ta.`filename`=tb.id 
+ORDER BY id ASC');
 	    	if ( count($result) != 0 )
 	    	{
 	    		return $this->output(Response::SUCCESS, $result);
@@ -84,7 +86,10 @@ ORDER BY ta.id ASC', [$menuTypeId]);
 	    //获取推荐商品详情
 	    public function getRecommandDetail ( $id )
 	    {
-	    	$result = DB::select('SELECT * FROM mantadia_recommendation WHERE 1=1 AND `id`=?', [$id]);
+	    	$result = DB::select('SELECT ta.id,ta.name,ta.price,ta.size,ta.`belong_who`,ta.`belong_area`,ta.`base_info`,tb.filename
+FROM mantadia_recommendation ta
+LEFT JOIN mantadia_image tb ON ta.`filename`=tb.`id`
+WHERE 1=1 AND ta.`id`=?', [$id]);
 	    	if ( count($result) != 0 )
 	    	{
 	    		return $this->output(Response::SUCCESS, $result);
