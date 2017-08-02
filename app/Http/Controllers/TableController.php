@@ -29,6 +29,21 @@
 	    		return $this->output(Response::NO_MORE_INFO);
 	    	}
 	    }
+	    
+	    
+	    //搜索未在使用的桌子
+	    public function searchEmptyTable ( $tableId )
+	    {
+	    	$result = DB::select('SELECT * FROM mantadia_tables WHERE 1=1 AND `status`=0 AND id=?', [$tableId]);
+	    	if ( count($result) == 1 )
+	    	{
+	    		return $this->output(Response::SUCCESS, $result);
+	    	}
+	    	else
+	    	{
+	    		return $this->output(Response::NO_MORE_INFO);
+	    	}
+	    }
 
 
 	    //获取所有的menu_type
