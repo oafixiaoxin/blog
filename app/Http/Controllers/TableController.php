@@ -126,7 +126,8 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 	    	
 	    	DB::beginTransaction();
 	    	DB::table('mantadia_tables')->where('id', $tableId)->update(['status' => 1]);
-	    	DB::commit();
+//	    	DB::commit();
+			DB::rollback();
 	    	
 	    	return $this->output(Response::SUCCESS, 1);
 	    	
