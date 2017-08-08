@@ -145,13 +145,13 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 				else
 				{
 					DB::rollback();
-					return $this->output(Response::SUCCESS, Response::WRONG_OPERATION);
+					return $this->output(Response::WRONG_OPERATION);
 				}
 			}
 			else
 			{
 				DB::rollback();
-				return $this->output(Response::SUCCESS, Response::WRONG_OPERATION);
+				return $this->output(Response::WRONG_OPERATION);
 			}
 //	    	DB::commit();
 	    	
