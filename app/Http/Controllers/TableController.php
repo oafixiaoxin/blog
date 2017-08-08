@@ -125,11 +125,34 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 	    	$time = $request->input('time');
 	    	
 	    	DB::beginTransaction();
-	    	DB::table('mantadia_tables')->where('id', $tableId)->update(['status' => 1]);
+//	    	DB::table('mantadia_tables')->where('id', $tableId)->update(['status' => 1]);
+			$updateTableEffects = DB::update('update mantadia_tables set `status`=1 where 1=1 and `id`=?', [$tableId]);
+			if ( $updateTableEffects > 0 )
+			{
+				$id = DB::table('mantadia_orders')->insertGetId(
+				[
+					'time' => $time,
+					'userid' => 0,
+					'tablesid' => $tableId,
+					'number' => $mealNumber,
+					'status' => 0
+				]);
+				if ( isset($id) )
+				{
+					return $this->output(Response::SUCCESS, $id);
+				}
+				else
+				{
+					DB::rollback();
+					return $this->output(Response::SUCCESS, Response::WRONG_OPERATION);
+				}
+			}
+			else
+			{
+				DB::rollback();
+				return $this->output(Response::SUCCESS, Response::WRONG_OPERATION);
+			}
 //	    	DB::commit();
-			DB::rollback();
-	    	
-	    	return $this->output(Response::SUCCESS, 1);
 	    	
 	    }
 
