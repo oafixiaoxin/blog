@@ -141,29 +141,29 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 				{
 					for ( $i = 0 ; $i < count($selectedMenu) ; $i++ )
 					{
-						$orderMenuItemId = DB::table('mantadia_orderitem')->where('ordersid', $id)->where('menuitemid', $selectedMenu[$i]->id)->value('id');
-						//不存在就新增
-						if ( !isset($orderMenuItemId) )
-						{
-							$id1 = DB::table('mantadia_orderitem')->insertGetId(
-							[
-								'ordersid' => $id,
-								'menuitemid' => $selectedMenu[$i]->id,
-								'number' => $selectedMenu[$i]->number,
-								'status' => 0
-							]);
-						}
-						//存在就更新
-						else
-						{
-							DB::table('mantadia_orderitem')->where('ordersid', $id)->where('menuitemid', $selectedMenu[$i]->id)->update(['number' => $selectedMenu[$i]->number);
-						}
-						//新增失败就回滚
-						if ( !isset($id1) )
-						{
-							DB::rollback();
-							return $this->output(Response::WRONG_OPERATION);
-						}
+//						$orderMenuItemId = DB::table('mantadia_orderitem')->where('ordersid', $id)->where('menuitemid', $selectedMenu[$i]->id)->value('id');
+//						//不存在就新增
+//						if ( !isset($orderMenuItemId) )
+//						{
+//							$id1 = DB::table('mantadia_orderitem')->insertGetId(
+//							[
+//								'ordersid' => $id,
+//								'menuitemid' => $selectedMenu[$i]->id,
+//								'number' => $selectedMenu[$i]->number,
+//								'status' => 0
+//							]);
+//							//新增失败就回滚
+//							if ( !isset($id1) )
+//							{
+//								DB::rollback();
+//								return $this->output(Response::WRONG_OPERATION);
+//							}
+//						}
+//						//存在就更新
+//						else
+//						{
+//							DB::table('mantadia_orderitem')->where('ordersid', $id)->where('menuitemid', $selectedMenu[$i]->id)->update(['number' => $selectedMenu[$i]->number);
+//						}
 					}
 					DB::commit();
 					return $this->output(Response::SUCCESS, $id);
