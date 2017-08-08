@@ -145,7 +145,7 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 						[
 							'ordersid' => $id,
 							'menuitemid' => $selectedMenu[$i]->id,
-							'number' => $selectedMenu[$i]-number,
+							'number' => $selectedMenu[$i]->number,
 							'status' => 0
 						]);
 						if ( !isset($id1) )
