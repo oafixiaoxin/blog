@@ -148,7 +148,7 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 				//存在订单就获取订单Id进行接下来的操作
 				else
 				{
-					$id = DB::table('mantadia_orders')->where('tablesid', $tableId)->where('status', '<>', 0)->where('status', '<>', 3)->value('id');
+					$id = DB::table('mantadia_orders')->where('tablesid', $tableId)->where('status', '<>', '0')->where('status', '<>', '3')->value('id');
 				}
 				if ( isset($id) )
 				{
