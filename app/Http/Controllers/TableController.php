@@ -114,6 +114,17 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 	    		return $this->output(Response::NO_MORE_INFO);
 	    	}
 	    }
+	    
+	    
+	    //提交订单给厨房
+	    public function sendOrder ( Request $request )
+	    {
+	    	$selectedMenu = $request->input('selectedMenu');
+	    	$tableId = $request->input('tableId');
+	    	$mealNumber = $request->input('mealNumber');
+	    	$time = $request->input('time');
+	    	return $this->output(Response::SUCCESS, $time);
+	    }
 
 	    
 	}

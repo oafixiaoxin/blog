@@ -27,4 +27,6 @@ $app->group(['prefix' => 'api2/v1'], function($app)
 	$app->get('/getAllRecommand', 'TableController@getAllRecommand');
 	$app->get('/getRecommandDetail/{id}', 'TableController@getRecommandDetail');
 	$app->get('/searchEmptyTable/{tableId}', 'TableController@searchEmptyTable');
+	
+	$app->post('/sendOrder', 'TableController@sendOrder');
 });
