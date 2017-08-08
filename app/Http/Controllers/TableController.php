@@ -123,7 +123,14 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 	    	$tableId = $request->input('tableId');
 	    	$mealNumber = $request->input('mealNumber');
 	    	$time = $request->input('time');
-	    	return $this->output(Response::SUCCESS, $time);
+	    	
+	    	DB::transaction(function()
+	    	{
+	    		DB::table('mantadia_tables')->where('id', $tableId)->update(['status' => 1]);
+	    	});
+	    	
+	    	return $this->output(Response::SUCCESS, 1);
+	    	
 	    }
 
 	    
