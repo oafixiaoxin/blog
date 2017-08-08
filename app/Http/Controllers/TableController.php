@@ -139,6 +139,7 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 				]);
 				if ( isset($id) )
 				{
+					DB::commit();
 					return $this->output(Response::SUCCESS, $id);
 				}
 				else
