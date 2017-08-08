@@ -127,7 +127,7 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 	    	DB::beginTransaction();
 //	    	DB::table('mantadia_tables')->where('id', $tableId)->update(['status' => 1]);
 			$updateTableEffects = DB::update('update mantadia_tables set `status`=1 where 1=1 and `id`=?', [$tableId]);
-			if ( $updateTableEffects > 0 )
+			if ( isset($updateTableEffects) )
 			{
 				$id = DB::table('mantadia_orders')->insertGetId(
 				[
@@ -139,6 +139,21 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 				]);
 				if ( isset($id) )
 				{
+					for ( $i = 0 ; $i < count($selectedMenu) ; $i++ )
+					{
+						$id1 = DB::table('mantadia_orderitem')->insertGetId(
+						[
+							'ordersid' => $id,
+							'menuitemid' => $selectedMenu[$i]['id'],
+							'number' => $selectedMenu[$i]['number'],
+							'status' => 0
+						]);
+						if ( !isset($id1) )
+						{
+							DB::rollback();
+							return $this->output(Response::WRONG_OPERATION);
+						}
+					}
 					DB::commit();
 					return $this->output(Response::SUCCESS, $id);
 				}
@@ -153,8 +168,6 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 				DB::rollback();
 				return $this->output(Response::WRONG_OPERATION);
 			}
-//	    	DB::commit();
-	    	
 	    }
 
 	    
