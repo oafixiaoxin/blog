@@ -141,21 +141,22 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 				{
 					for ( $i = 0 ; $i < count($selectedMenu) ; $i++ )
 					{
-						$id1 = DB::table('mantadia_orderitem')->insertGetId(
-						[
-							'ordersid' => $id,
-							'menuitemid' => $selectedMenu[$i]['id'],
-							'number' => $selectedMenu[$i]['number'],
-							'status' => 0
-						]);
-						if ( !isset($id1) )
-						{
-							DB::rollback();
-							return $this->output(Response::WRONG_OPERATION);
-						}
+						return $this->output(Response::SUCCESS, $selectedMenu[$i]['id']);
+//						$id1 = DB::table('mantadia_orderitem')->insertGetId(
+//						[
+//							'ordersid' => $id,
+//							'menuitemid' => $selectedMenu[$i]['id'],
+//							'number' => $selectedMenu[$i]['number'],
+//							'status' => 0
+//						]);
+//						if ( !isset($id1) )
+//						{
+//							DB::rollback();
+//							return $this->output(Response::WRONG_OPERATION);
+//						}
 					}
-					DB::commit();
-					return $this->output(Response::SUCCESS, $id);
+//					DB::commit();
+//					return $this->output(Response::SUCCESS, $id);
 				}
 				else
 				{
