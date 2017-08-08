@@ -123,7 +123,6 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 	    	$tableId = $request->input('tableId');
 	    	$mealNumber = $request->input('mealNumber');
 	    	$time = $request->input('time');
-	    	return $this->output(Response::SUCCESS, $selectedMenu[0]->name);
 	    	
 	    	DB::beginTransaction();
 //	    	DB::table('mantadia_tables')->where('id', $tableId)->update(['status' => 1]);
@@ -145,8 +144,8 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 						$id1 = DB::table('mantadia_orderitem')->insertGetId(
 						[
 							'ordersid' => $id,
-							'menuitemid' => $selectedMenu[$i]['id'],
-							'number' => $selectedMenu[$i]['number'],
+							'menuitemid' => $selectedMenu[$i]->id,
+							'number' => $selectedMenu[$i]-number,
 							'status' => 0
 						]);
 						if ( !isset($id1) )
