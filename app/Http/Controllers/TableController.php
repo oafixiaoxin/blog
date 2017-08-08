@@ -123,7 +123,7 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 	    	$tableId = $request->input('tableId');
 	    	$mealNumber = $request->input('mealNumber');
 	    	$time = $request->input('time');
-	    	return $this->output(Response::SUCCESS, $selectedMenu[0].id);
+	    	return $this->output(Response::SUCCESS, var_dump($selectedMenu));
 	    	
 	    	DB::beginTransaction();
 //	    	DB::table('mantadia_tables')->where('id', $tableId)->update(['status' => 1]);
@@ -142,22 +142,21 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 				{
 					for ( $i = 0 ; $i < count($selectedMenu) ; $i++ )
 					{
-						return $this->output(Response::SUCCESS, $selectedMenu[$i]['id']);
-//						$id1 = DB::table('mantadia_orderitem')->insertGetId(
-//						[
-//							'ordersid' => $id,
-//							'menuitemid' => $selectedMenu[$i]['id'],
-//							'number' => $selectedMenu[$i]['number'],
-//							'status' => 0
-//						]);
-//						if ( !isset($id1) )
-//						{
-//							DB::rollback();
-//							return $this->output(Response::WRONG_OPERATION);
-//						}
+						$id1 = DB::table('mantadia_orderitem')->insertGetId(
+						[
+							'ordersid' => $id,
+							'menuitemid' => $selectedMenu[$i]['id'],
+							'number' => $selectedMenu[$i]['number'],
+							'status' => 0
+						]);
+						if ( !isset($id1) )
+						{
+							DB::rollback();
+							return $this->output(Response::WRONG_OPERATION);
+						}
 					}
-//					DB::commit();
-//					return $this->output(Response::SUCCESS, $id);
+					DB::commit();
+					return $this->output(Response::SUCCESS, $id);
 				}
 				else
 				{
