@@ -126,17 +126,30 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 	    	
 	    	DB::beginTransaction();
 //	    	DB::table('mantadia_tables')->where('id', $tableId)->update(['status' => 1]);
+			//开台
 			$updateTableEffects = DB::update('update mantadia_tables set `status`=1 where 1=1 and `id`=?', [$tableId]);
 			if ( isset($updateTableEffects) )
 			{
-				$id = DB::table('mantadia_orders')->insertGetId(
-				[
-					'time' => $time,
-					'userid' => 0,
-					'tablesid' => $tableId,
-					'number' => $mealNumber,
-					'status' => 0
-				]);
+				$id;
+				//查看是否存在订单
+				$orderId = DB::table('mantadia_orders')->where('tablesid', $tableId)->where('status', 0)->value('id');
+				//不存在就新增订单,并获取新增的订单id
+				if ( !isset($orderId) )
+				{
+					$id = DB::table('mantadia_orders')->insertGetId(
+					[
+						'time' => $time,
+						'userid' => 0,
+						'tablesid' => $tableId,
+						'number' => $mealNumber,
+						'status' => 0
+					]);
+				}
+				//存在订单就获取订单Id进行接下来的操作
+				else
+				{
+					$id = DB::table('mantadia_orders')->where('tablesid', $tableId)->where('status', '<>', 0)->where('status', '<>', 3)->value('id');
+				}
 				if ( isset($id) )
 				{
 					for ( $i = 0 ; $i < count($selectedMenu) ; $i++ )
