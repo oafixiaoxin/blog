@@ -149,6 +149,7 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 				else
 				{
 					$id = DB::table('mantadia_orders')->where('tablesid', $tableId)->where('status', '<>', '0')->where('status', '<>', '3')->value('id');
+					return $this->output(Response::SUCCESS, $id);
 				}
 				if ( isset($id) )
 				{
