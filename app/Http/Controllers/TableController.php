@@ -193,6 +193,29 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 				return $this->output(Response::WRONG_OPERATION);
 			}
 	    }
+	    
+	    
+	    //手机端登录
+	    public function login ( $loginName, $loginPassword )
+	    {
+	    	$judgeLoginName = DB::select('select * from mantadia_user where 1=1 and `account`=?', [$loginName]);
+	    	if ( isset($judgeLoginName) ) 
+	    	{
+	    		$userId = DB::table('mantadia_user')->where('account', $loginName)->where('password', $loginPassword)->value('id');
+	    		if ( isset($userId) )
+	    		{
+	    			return $this->output(Response::SUCCESS, $userId);
+	    		}
+	    		else
+	    		{
+	    			return $this->output(Response::PASSWORD_INCORRECT);
+	    		}
+	    	}
+	    	else
+	    	{
+	    		return $this->output(Response::USER_NOT_FOUND);
+	    	}
+	    }
 
 	    
 	}
