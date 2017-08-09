@@ -216,6 +216,21 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 	    		return $this->output(Response::USER_NOT_FOUND);
 	    	}
 	    }
+	    
+	    
+	    //获取用户信息
+	    public function getUserInfo ( $userId )
+	    {
+	    	$userInfo = DB::table('mantadia_user')->where('id', $userId)->first();
+	    	if ( isset($userInfo) )
+	    	{
+	    		return $this->output(Response::SUCCESS, $userInfo);
+	    	}
+	    	else
+	    	{
+	    		return $this->output(Response::NO_MORE_INFO);
+	    	}
+	    }
 
 	    
 	}
