@@ -236,7 +236,7 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 	    //获取所有桌子信息
 	    public function getAllTable()
 	    {
-	    	$result = DB::select('select * from mantadia_tables');
+	    	$result = DB::select('SELECT ta.*,IFNULL((SELECT number FROM mantadia_orders WHERE 1=1 AND `status`<>3 AND tablesid=ta.id), 0) AS meal_number FROM mantadia_tables ta');
 	    	if ( count($result) )
 	    	{
 	    		return $this->output(Response::SUCCESS, $result);
