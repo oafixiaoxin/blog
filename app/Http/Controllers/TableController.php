@@ -64,12 +64,16 @@
 	    //根据menu_type_id获取所有menu_item
 	    public function getMenuItem( $menuTypeId )
 	    {
-//	    	$menu_type_id = $request->input('menuTypeId');
-	    	$result = DB::select('SELECT ta.id,ta.name,ta.price,ta.note,tb.filename,tc.name AS menutypename FROM mantadia_menuitem ta
+	    	$dateStr = date("Y-m");
+	    	$result = DB::select('SELECT ta.id,ta.name,ta.price,ta.note,tb.filename,tc.name AS menutypename,IFNULL(td.month_sale, 0) AS month_sale FROM mantadia_menuitem ta
 LEFT JOIN mantadia_image tb ON ta.imageid=tb.id 
 LEFT JOIN mantadia_menutype tc ON ta.menutypeid=tc.id
-WHERE 1=1 AND ta.menutypeid=?
-ORDER BY ta.id ASC', [$menuTypeId]);
+LEFT JOIN (SELECT ta.*,SUM(ta.number) AS month_sale,tb.time FROM mantadia_orderitem ta
+LEFT JOIN mantadia_orders tb ON ta.ordersid=tb.id
+WHERE 1=1 AND tb.time LIKE "'.$dateStr.'%"
+GROUP BY ta.menuitemid) td ON ta.id=td.menuitemid
+WHERE 1=1 AND ta.menutypeid='.$menuTypeId.'
+ORDER BY ta.id ASC');
 			if ( count($result) != 0 || !isset($result) )
 			{
 				return $this->output(Response::SUCCESS, $result);
