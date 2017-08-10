@@ -231,6 +231,21 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 	    		return $this->output(Response::NO_MORE_INFO);
 	    	}
 	    }
+	    
+	    
+	    //获取所有桌子信息
+	    public function getAllTable()
+	    {
+	    	$result = DB::select('select * from mantadia_tables');
+	    	if ( count($result) )
+	    	{
+	    		return $this->output(Response::SUCCESS, $result);
+	    	}
+	    	else
+	    	{
+	    		return $this->output(Response::NO_MORE_INFO);
+	    	}
+	    }
 
 	    
 	}
