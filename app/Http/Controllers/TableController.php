@@ -256,8 +256,8 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 	    public function searchMenuItem ( $regex )
 	    {
 //	    	return $this->output(Response::SUCCESS, urldecode($regex));
-	    	$result = DB::select('select * from mantadia_menuitem where 1=1 and `name` like "%'.urldecode($regex).'%"');
-//			$result = DB::table('mantadia_menuitem')->where('name', 'like', '%生%')->get();
+//	    	$result = DB::select('select * from mantadia_menuitem where 1=1 and `name` like "%'.urldecode($regex).'%"');
+			$result = DB::table('mantadia_menuitem')->where('name', 'like', '%'.urldecode($regex).'%')->get();
 	    	if ( count($result) != 0 )
 	    	{
 	    		return $this->output(Response::SUCCESS, $result);
