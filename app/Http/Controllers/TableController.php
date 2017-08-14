@@ -246,7 +246,7 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 	    	}
 	    	else
 	    	{
-	    		$result = DB::table('mantadia_tables')->where('type', $type)->get();
+	    		$result = DB::select('SELECT ta.*,IFNULL((SELECT number FROM mantadia_orders WHERE 1=1 AND `status`<>3 AND tablesid=ta.id), 0) AS meal_number FROM mantadia_tables ta WHERE 1=1 AND ta.`type`=:type', ['type' => $type]);
 	    	}
 	    	
 	    	if ( count($result) )
