@@ -238,9 +238,17 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 	    
 	    
 	    //获取所有桌子信息
-	    public function getAllTable()
+	    public function getAllTable( $type )
 	    {
-	    	$result = DB::select('SELECT ta.*,IFNULL((SELECT number FROM mantadia_orders WHERE 1=1 AND `status`<>3 AND tablesid=ta.id), 0) AS meal_number FROM mantadia_tables ta');
+	    	if ( $type == 3 )
+	    	{
+	    		$result = DB::select('SELECT ta.*,IFNULL((SELECT number FROM mantadia_orders WHERE 1=1 AND `status`<>3 AND tablesid=ta.id), 0) AS meal_number FROM mantadia_tables ta');
+	    	}
+	    	else
+	    	{
+	    		$result = DB::table('mantadia_tables')->where('type', $type)->get();
+	    	}
+	    	
 	    	if ( count($result) )
 	    	{
 	    		return $this->output(Response::SUCCESS, $result);
@@ -252,7 +260,7 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 	    }
 	    
 	    
-	    //搜索菜单 url_decode
+	    //搜索菜单 
 	    public function searchMenuItem ( $regex )
 	    {
 //	    	return $this->output(Response::SUCCESS, urldecode($regex));
