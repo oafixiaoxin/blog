@@ -275,6 +275,29 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 	    		return $this->output(Response::NO_MORE_INFO);
 	    	}
 	    }
+	    
+	    
+	    //获取所有正在作用的餐桌，phone端
+	    public function getUsingTable ( $type )
+	    {
+	    	if ( $type == 3 )
+	    	{
+	    		$result = DB::select('SELECT ta.*,IFNULL((SELECT number FROM mantadia_orders WHERE 1=1 AND `status`<>3 AND tablesid=ta.id), 0) AS meal_number FROM mantadia_tables ta WHERE 1=1 AND ta.`status`=1');	
+	    	}
+	    	else
+	    	{
+	    		$result = DB::select('SELECT ta.*,IFNULL((SELECT number FROM mantadia_orders WHERE 1=1 AND `status`<>3 AND tablesid=ta.id), 0) AS meal_number FROM mantadia_tables ta WHERE 1=1 AND ta.`status`=1 AND ta.`type`=:type', ['type' => $type]);
+	    	}
+	    	
+	    	if ( count($result) != 0 )
+	    	{
+	    		return $this->output(Response::SUCCESS, $result);
+	    	}
+	    	else
+	    	{
+	    		return $this->output(Response::NO_MORE_INFO);
+	    	}
+	    }
 
 	    
 	}
