@@ -31,6 +31,7 @@ $app->group(['prefix' => 'api2/v1'], function($app)
 	$app->get('/getUserInfo/{userId}', 'TableController@getUserInfo');
 	$app->get('/getAllTable/{type}', 'TableController@getAllTable');
 	$app->get('/searchMenuItem/{regex}', 'TableController@searchMenuItem');
+	$app->get('/getUsingTable/{type}', 'TableController@getUsingTable');
 	
 	$app->post('/sendOrder', 'TableController@sendOrder');
 });
