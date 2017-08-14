@@ -29,7 +29,7 @@ $app->group(['prefix' => 'api2/v1'], function($app)
 	$app->get('/searchEmptyTable/{tableId}', 'TableController@searchEmptyTable');
 	$app->get('/login/{loginName}/{loginPassword}', 'TableController@login');
 	$app->get('/getUserInfo/{userId}', 'TableController@getUserInfo');
-	$app->get('/getAllTable', 'TableController@getAllTable');
+	$app->get('/getAllTable/{type}', 'TableController@getAllTable');
 	$app->get('/searchMenuItem/{regex}', 'TableController@searchMenuItem');
 	
 	$app->post('/sendOrder', 'TableController@sendOrder');
