@@ -33,11 +33,11 @@
 	    		{
 	    			$image_name = date('YmdHis').time().'.'.$result[2];
 	    		}
-	 mkdir('/www/wwwroot/image/', 0700);
-//	    		if ( !file_exists('/www/wwwroot/image/upload/'.date('Ymd',time()).'/') )
-//	    		{
-//  			
-//	    		}
+	 
+	    		if ( !file_exists('/www/wwwroot/image/upload/'.date('Ymd',time()).'/') )
+	    		{
+    				mkdir('/www/wwwroot/image/upload/'.date('Ymd',time()).'/', 0700);
+	    		}
 	    		
 	    		$filepath = '/www/wwwroot/image/upload/'.date('Ymd',time()).'/'.$image_name;
 	    		return $this->output(Response::SUCCESS, $filepath);
