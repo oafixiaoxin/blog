@@ -34,11 +34,11 @@
 	    			$image_name = date('YmdHis').time().'.'.$result[2];
 	    		}
 	 
-	    		if ( !file_exists('../image/upload/') )
+	    		if ( !file_exists('/www/wwwroot/image/upload/') )
 	    		{
-	    			mkdir('../image/upload/', 0700);
+	    			mkdir('/www/wwwroot/image/upload/', 0700);
 	    		}
-	    		$filepath = '../image/upload/'.$image_name;
+	    		$filepath = '/www/wwwroot/image/upload/'.$image_name;
 //	    		$tempAry = [
 //	    			"arg0" => $result[0],
 //	    			"arg1" => $result[1],
