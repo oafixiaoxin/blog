@@ -37,12 +37,12 @@
 	    			$image_name = date('YmdHis').time().'.'.$result[2];
 	    		}
 	 
-	    		if ( !file_exists({$file_path}.date('Ymd',time()).'/') )
+	    		if ( !file_exists($file_path.date('Ymd',time()).'/') )
 	    		{
-    				mkdir({$file_path}.date('Ymd',time()).'/', 0700);
+    				mkdir($file_path.date('Ymd',time()).'/', 0700);
 	    		}
 	    		
-	    		$filepath = {$file_path}.date('Ymd',time()).'/'.$image_name;
+	    		$filepath = $file_path.date('Ymd',time()).'/'.$image_name;
 	    		
 	    		if ( file_put_contents($filepath, base64_decode(str_replace($result[1], '', $base64_str))) )
 	    		{
