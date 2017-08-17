@@ -35,7 +35,7 @@
 					return '参数错误';
 				case self::WRONG_IMG_PATTERN:
 					return '图片格式错误';
-				case self:: SAVE_IMG_FAILED:
+				case self::SAVE_IMG_FAILED:
 					return '保存图片失败';
 				default:
 					return '未知错误';
