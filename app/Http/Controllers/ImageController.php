@@ -42,8 +42,8 @@
 	    		];
 //	    		return $this->output(Response::SUCCESS, $tempAry);
 
-				$base64_str = str_replace($result[1], "", $base64_str);
-				$base64_str = str_replace('/', '\/', $base64_str);
+//				$base64_str = str_replace($result[1], "", $base64_str);
+//				$base64_str = str_replace('/', '\/', $base64_str);
 				return $this->output(Response::SUCCESS, base64_decode(str_replace('/','\/',str_replace($result[1],'',$base64_str))));
 //	    		if ( file_put_contents($filepath, base64_decode(str_replace($result[1], "", $base64_str))) )
 //	    		{
