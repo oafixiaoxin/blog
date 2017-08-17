@@ -20,7 +20,7 @@
 	    public function uploadImage ( Request $request )
 	    {
 	    	$base64_str = $request->input('imgBase64');
-	    	return $base64_str;
+	    	return $this->output(Response::SUCCESS, $base64_str);
 //	    	$base64_image = str_replace('', '+', $base64_str);
 //	    	if ( preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image, $result) )
 //	    	{
