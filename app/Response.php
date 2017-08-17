@@ -12,6 +12,8 @@
 		const NO_MORE_INFO = 10004;
 		const WRONG_OPERATION = 10005;
 		const WRONG_PARAMS = 10006;
+		const WRONG_IMG_PATTERN = 10007;
+		const SAVE_IMG_FAILED = 10008;
 		
 		static public function getResponseMsg($code = Response::SUCCESS){
 			switch($code){
@@ -31,6 +33,10 @@
 					return '操作失败';
 				case self::WRONG_PARAMS:
 					return '参数错误';
+				case self::WRONG_IMG_PATTERN:
+					return '图片格式错误';
+				case self:: SAVE_IMG_FAILED:
+					return '保存图片失败';
 				default:
 					return '未知错误';
 			}
