@@ -33,14 +33,13 @@
 	    		{
 	    			$image_name = date('YmdHis').time().'.'.$result[2];
 	    		}
-	 
-	    		if ( !file_exists('/www/wwwroot/image/upload/'.date('Ymd',time()).'/') )
-	    		{
-//	    			mkdir('/www/wwwroot/image/upload/'.date('Ymd',time()).'/', 0700);
-return $this->output(Response::SUCCESS, '1111');
-	    		}
+	 mkdir('/www/wwwroot/image/upload/'.date('Ymd',time()).'/', 0700);
+//	    		if ( !file_exists('/www/wwwroot/image/upload/'.date('Ymd',time()).'/') )
+//	    		{
+//  			
+//	    		}
+	    		
 	    		$filepath = '/www/wwwroot/image/upload/'.date('Ymd',time()).'/'.$image_name;
-
 	    		return $this->output(Response::SUCCESS, $filepath);
 //	    		if ( file_put_contents($filepath, base64_decode(str_replace($result[1], '', $base64_str))) )
 //	    		{
