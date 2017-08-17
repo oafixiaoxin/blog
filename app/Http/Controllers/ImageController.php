@@ -28,11 +28,11 @@
 	    		//匹配成功 
 	    		if ( $result[2] == 'jpeg' )
 	    		{
-	    			$image_name = time().'.jpg';
+	    			$image_name = date('YmdHis').time().'.jpg';
 	    		}
 	    		else
 	    		{
-	    			$image_name = time().'.'.$result[2];
+	    			$image_name = date('YmdHis').time().'.'.$result[2];
 	    		}
 	    		return $this->output(Response::SUCCESS, $image_name);
 	    	}
