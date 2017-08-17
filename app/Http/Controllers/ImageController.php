@@ -33,7 +33,7 @@
 	    		{
 	    			$image_name = date('YmdHis').time().'.'.$result[2];
 	    		}
-	 mkdir('/www/wwwroot/image/upload/'.date('Ymd',time()).'/', 0700);
+	 mkdir('/www/wwwroot/image/', 0700);
 //	    		if ( !file_exists('/www/wwwroot/image/upload/'.date('Ymd',time()).'/') )
 //	    		{
 //  			
