@@ -34,7 +34,7 @@
 	    			$image_name = date('YmdHis').time().'.'.$result[2];
 	    		}
 	    		$filepath = '../image/upload/'.$image_name;
-	    		$fp = './yanshuxin.txt';
+	    		$fp = '../yanshuxin.txt';
 //	    		$tempAry = [
 //	    			"arg0" => $result[0],
 //	    			"arg1" => $result[1],
