@@ -17,6 +17,7 @@
 	    }
 	    
 	    
+	    //uniqid()函数基于以微秒计的当前时间，生成一个唯一的 ID。
 	    public function uploadImage ( Request $request )
 	    {
 	    	$base64_str = $request->input('imgBase64');
@@ -27,11 +28,11 @@
 	    		//匹配成功 
 	    		if ( $result[2] == 'jpeg' )
 	    		{
-	    			$image_name = uniqid().'.jpg';
+	    			$image_name = time().'.jpg';
 	    		}
 	    		else
 	    		{
-	    			$image_name = uniqid().'.'.$result[2];
+	    			$image_name = time().'.'.$result[2];
 	    		}
 	    		return $this->output(Response::SUCCESS, $image_name);
 	    	}
