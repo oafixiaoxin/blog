@@ -41,6 +41,7 @@
 	    			"arg3" => $filepath
 	    		];
 	    		return $this->output(Response::SUCCESS, $tempAry);
+	    		return $this->output(Response::SUCCESS, str_replace('111','','111222333'));
 //	    		if ( file_put_contents($filepath, base64_decode(str_replace($result[1], "", $base64_str))) )
 //	    		{
 //	    			return $this->output(Response::SUCCESS, $image_name);
