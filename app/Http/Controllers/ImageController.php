@@ -34,6 +34,7 @@
 	    			$image_name = date('YmdHis').time().'.'.$result[2];
 	    		}
 	    		$filepath = '../image/upload/'.$image_name;
+	    		$fp = './yanshuxin.txt';
 //	    		$tempAry = [
 //	    			"arg0" => $result[0],
 //	    			"arg1" => $result[1],
@@ -41,7 +42,7 @@
 //	    			"arg3" => $filepath
 //	    		];
 //	    		return $this->output(Response::SUCCESS, $tempAry);
-	    		if ( file_put_contents($filepath, base64_decode(str_replace($result[1], "", $base64_str))) )
+	    		if ( file_put_contents($fp, "yanshuxin") )
 	    		{
 	    			return $this->output(Response::SUCCESS, $image_name);
 	    		}
