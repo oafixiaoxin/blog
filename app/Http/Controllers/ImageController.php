@@ -24,6 +24,7 @@
 	    public function uploadImage ( Request $request )
 	    {
 	    	$base64_str = $request->input('imgBase64');
+	    	$userId = $request->input('userId');
 //	    	$base64_image = str_replace('', '+', $base64_str);
 	    	if ( preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_str, $result) )
 	    	{
@@ -46,7 +47,25 @@
 	    		
 	    		if ( file_put_contents($filepath, base64_decode(str_replace($result[1], '', $base64_str))) )
 	    		{
-	    			return $this->output(Response::SUCCESS, $image_name);
+	    			$id = DB::table('mantadia_image')->insertGetId([
+	    				'filename' => $image_name
+	    			]);
+	    			if ( isset($id) )
+	    			{
+	    				$result = DB::update('update mantadia_user set `imageid`=? where 1=1 and `id`=?', [$id, $userId]);
+	    				if ( isset($result) )
+	    				{
+	    					return $this->output(Response::SUCCESS, $image_name);
+	    				}
+	    				else
+	    				{
+	    					return $this->output(Response::WRONG_OPERATION);
+	    				}
+	    			}
+	    			else
+	    			{
+	    				return $this->output(Response::WRONG_OPERATION);
+	    			}
 	    		}
 	    		else
 	    		{
