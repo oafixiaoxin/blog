@@ -34,7 +34,7 @@
 	    		{
 	    			$image_name = date('YmdHis').time().'.'.$result[2];
 	    		}
-	    		$filepath = './image/upload/{$image_name}';
+	    		$filepath = './image/upload/'.$image_name;
 	    		if ( file_put_contents($filepath, base64_decode(str_replace($result[1], "", $base64_str))))
 	    		{
 	    			return $this->output(Response::SUCCESS, $image_name);
