@@ -34,21 +34,23 @@
 	    			$image_name = date('YmdHis').time().'.'.$result[2];
 	    		}
 	    		$filepath = '../image/upload/'.$image_name;
-	    		$tempAry = [
-	    			"arg0" => $result[0],
-	    			"arg1" => $result[1],
-	    			"arg2" => $result[2],
-	    			"arg3" => $filepath
-	    		];
-	    		return $this->output(Response::SUCCESS, $tempAry);
-//	    		if ( file_put_contents($filepath, base64_decode(str_replace($result[1], "", $base64_str))) )
-//	    		{
-//	    			return $this->output(Response::SUCCESS, $image_name);
-//	    		}
-//	    		else
-//	    		{
-//	    			return $this->output(Response::FAILED);
-//	    		}
+//	    		$tempAry = [
+//	    			"arg0" => $result[0],
+//	    			"arg1" => $result[1],
+//	    			"arg2" => $result[2],
+//	    			"arg3" => $filepath
+//	    		];
+//	    		return $this->output(Response::SUCCESS, $tempAry);
+				echo file_put_contents($filepath, base64_decode(str_replace($result[1], "", $base64_str)));
+				exit;
+	    		if ( file_put_contents($filepath, base64_decode(str_replace($result[1], "", $base64_str))) )
+	    		{
+	    			return $this->output(Response::SUCCESS, $image_name);
+	    		}
+	    		else
+	    		{
+	    			return $this->output(Response::FAILED);
+	    		}
 	    	}
 	    	else
 	    	{
