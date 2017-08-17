@@ -34,26 +34,26 @@
 	    			$image_name = date('YmdHis').time().'.'.$result[2];
 	    		}
 	 
-	    		if ( !file_exists('/www/wwwroot/image/upload/') )
+	    		if ( !file_exists('/www/wwwroot/image/upload/'.date('Ymd',time()).'/') )
 	    		{
-	    			mkdir('/www/wwwroot/image/upload/', 0700);
+	    			mkdir('/www/wwwroot/image/upload/'.date('Ymd',time()).'/', 0700);
 	    		}
-	    		$filepath = '/www/wwwroot/image/upload/'.$image_name;
+	    		$filepath = '/www/wwwroot/image/upload/'.date('Ymd',time()).'/'.$image_name;
 //	    		$tempAry = [
 //	    			"arg0" => $result[0],
 //	    			"arg1" => $result[1],
 //	    			"arg2" => $result[2],
 //	    			"arg3" => $filepath
 //	    		];
-//	    		return $this->output(Response::SUCCESS, $tempAry);
-	    		if ( file_put_contents($filepath, base64_decode(str_replace($result[1], '', $base64_str))) )
-	    		{
-	    			return $this->output(Response::SUCCESS, $image_name);
-	    		}
-	    		else
-	    		{
-	    			return $this->output(Response::FAILED);
-	    		}
+	    		return $this->output(Response::SUCCESS, $filepath);
+//	    		if ( file_put_contents($filepath, base64_decode(str_replace($result[1], '', $base64_str))) )
+//	    		{
+//	    			return $this->output(Response::SUCCESS, $image_name);
+//	    		}
+//	    		else
+//	    		{
+//	    			return $this->output(Response::FAILED);
+//	    		}
 	    	}
 	    	else
 	    	{
