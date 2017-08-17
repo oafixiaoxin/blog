@@ -20,8 +20,8 @@
 	    public function uploadImage ( Request $request )
 	    {
 	    	$base64_str = $request->input('imgBase64');
-	    	$base64_image = str_replace('', '+', $base64_str);
-	    	if ( preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image, $result) )
+//	    	$base64_image = str_replace('', '+', $base64_str);
+	    	if ( preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_str, $result) )
 	    	{
 	    		//匹配成功 
 	    		if ( $result[2] == 'jpeg' )
