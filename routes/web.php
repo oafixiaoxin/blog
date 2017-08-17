@@ -34,4 +34,5 @@ $app->group(['prefix' => 'api2/v1'], function($app)
 	$app->get('/getUsingTable/{type}', 'TableController@getUsingTable');
 	
 	$app->post('/sendOrder', 'TableController@sendOrder');
+	$app->post('/uploadImage', 'ImageController@uploadImage');
 });
