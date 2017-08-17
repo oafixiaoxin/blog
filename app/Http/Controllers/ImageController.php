@@ -34,11 +34,19 @@
 	    		{
 	    			$image_name = date('YmdHis').time().'.'.$result[2];
 	    		}
-	    		return $this->output(Response::SUCCESS, $image_name);
+	    		$filepath = './image/upload/{$image_name}';
+	    		if ( file_put_contents($filepath, base64_decode(str_replace($result[1], "", $base64_str))))
+	    		{
+	    			return $this->output(Response::SUCCESS, $image_name);
+	    		}
+	    		else
+	    		{
+	    			return $this->output(Response::SAVE_IMG_FAILED);
+	    		}
 	    	}
 	    	else
 	    	{
-	    		return $this->output(Response::NO_MORE_INFO);
+	    		return $this->output(Response::WRONG_IMG_PATTERN);
 	    	}
 	    }
 	
