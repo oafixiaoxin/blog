@@ -43,14 +43,14 @@
 //	    		return $this->output(Response::SUCCESS, $tempAry);
 				echo file_put_contents($filepath, base64_decode(str_replace($result[1], "", $base64_str)));
 				exit;
-	    		if ( file_put_contents($filepath, base64_decode(str_replace($result[1], "", $base64_str))) )
-	    		{
-	    			return $this->output(Response::SUCCESS, $image_name);
-	    		}
-	    		else
-	    		{
-	    			return $this->output(Response::FAILED);
-	    		}
+//	    		if ( file_put_contents($filepath, base64_decode(str_replace($result[1], "", $base64_str))) )
+//	    		{
+//	    			return $this->output(Response::SUCCESS, $image_name);
+//	    		}
+//	    		else
+//	    		{
+//	    			return $this->output(Response::FAILED);
+//	    		}
 	    	}
 	    	else
 	    	{
