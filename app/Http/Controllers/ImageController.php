@@ -21,7 +21,7 @@
 	    {
 	    	$base64_str = $request->input('imgBase64');
 //	    	return $this->output(Response::SUCCESS, $base64_str);
-	    	$base64_image = str_replace('', '+', $base64_str);
+//	    	$base64_image = str_replace('', '+', $base64_str);
 	    	if ( preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_str, $result) )
 	    	{
 	    		//匹配成功 
