@@ -30,11 +30,11 @@
 	    		//匹配成功 
 	    		if ( $result[2] == 'jpeg' )
 	    		{
-	    			$image_name = 'u'+date('YmdHis').time().'.jpg';
+	    			$image_name = date('YmdHis').time().'.jpg';
 	    		}
 	    		else
 	    		{
-	    			$image_name = 'u'+date('YmdHis').time().'.'.$result[2];
+	    			$image_name = date('YmdHis').time().'.'.$result[2];
 	    		}
 	 
 	    		if ( !file_exists($this->file_path.date('Ymd',time()).'/') )
