@@ -32,6 +32,7 @@ $app->group(['prefix' => 'api2/v1'], function($app)
 	$app->get('/getAllTable/{type}', 'TableController@getAllTable');
 	$app->get('/searchMenuItem/{regex}', 'TableController@searchMenuItem');
 	$app->get('/getUsingTable/{type}', 'TableController@getUsingTable');
+	$app->get('/getEmptyTablesByType/{type}', 'TableController@getEmptyTablesByType');
 	
 	$app->post('/sendOrder', 'TableController@sendOrder');
 	$app->post('/uploadImage', 'ImageController@uploadImage');

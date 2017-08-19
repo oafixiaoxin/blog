@@ -298,6 +298,28 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 	    		return $this->output(Response::NO_MORE_INFO);
 	    	}
 	    }
+	    
+	    
+	    //获取所有未在使用的桌子列表,phone端
+	    public function getEmptyTablesByType ( $type )
+	    {
+	    	if ( $type == 3 )
+	    	{
+	    		$result = DB::select('SELECT * FROM mantadia_tables WHERE 1=1 AND `status`=0');
+	    	}
+	    	else
+	    	{
+	    		$result = DB::select('SELECT * FROM mantadia_tables WHERE 1=1 AND `status`=0 AND `type`=:type', ['type' => $type]);
+	    	}
+	    	if ( count($result) != 0 )
+	    	{
+	    		return $this->output(Response::SUCCESS, $result);
+	    	}
+	    	else
+	    	{
+	    		return $this->output(Response::NO_MORE_INFO);
+	    	}
+	    }
 
 	    
 	}
