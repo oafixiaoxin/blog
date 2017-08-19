@@ -320,6 +320,51 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 	    		return $this->output(Response::NO_MORE_INFO);
 	    	}
 	    }
+	    
+	    
+	    //换桌，phone端 
+	    /*
+	     * origin: 原桌号
+	     * target: 目标桌号
+	     * orderId: 订单id
+	     */
+	    public function changeTable ( Request $request )
+	    {
+	    	$origin = $request->input('origin');
+	    	$target = $request->input('target');
+	    	$orderId = $request->input('orderId');
+	    	//开启事务
+	    	DB::beginTransaction();
+	    	$updateTableEffects = DB::update('UPDATE mantadia_tables SET `status`=0 WHERE 1=1 AND `id`=:origin', ['origin' => $origin]);
+	    	if ( $updateTableEffects == 1 )
+	    	{
+	    		$updateTableEffects_1 = DB::update('UPDATE mantadia_tables SET `status`=1 WHERE 1=1 AND `id`=:target', ['target' => $target]);
+	    		if ( $updateTableEffects_1 == 1 )
+	    		{
+	    			$updateTableEffects_2 = DB::update('UPDATE mantadia_orders SET `tablesid`=:target WHERE 1=1 AND `id`=:orderId', ['target' => $target, 'orderId' => $orderId]);
+	    			if ( $updateTableEffects_2 == 1 )
+	    			{
+	    				DB::commit();
+	    				return $this->output(Response::SUCCESS);
+	    			}
+	    			else
+	    			{
+	    				DB::rollback();
+	    				return $this->output(Response::WRONG_OPERATION);
+	    			}
+	    		}
+	    		else
+	    		{
+	    			DB::rollback();
+	    			return $this->output(Response::WRONG_OPERATION);
+	    		}
+	    	}
+	    	else
+	    	{
+	    		DB::rollback();
+	    		return $this->output(Response::WRONG_OPERATION);
+	    	}
+	    }
 
 	    
 	}
