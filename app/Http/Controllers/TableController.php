@@ -282,17 +282,25 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 	    {
 	    	if ( $type == 3 )
 	    	{
-	    		$result = DB::select('SELECT ta.*,IFNULL((SELECT number FROM mantadia_orders WHERE 1=1 AND `status`<>3 AND tablesid=ta.id), 0) AS meal_number,
-(SELECT id FROM mantadia_orders WHERE 1=1 AND `status`<>3 AND tablesid=ta.id) AS orderId
-FROM mantadia_tables ta 
-WHERE 1=1 AND ta.`status`=1');	
+	    		$result = DB::select('SELECT ta.*,tb.id AS orderId,tb.number AS meal_number,SUM(tc.number*td.price) AS orderTotalPrice
+FROM mantadia_tables ta
+LEFT JOIN mantadia_orders tb ON ta.id=tb.tablesid
+LEFT JOIN mantadia_orderitem tc ON tb.id=tc.ordersid
+LEFT JOIN mantadia_menuitem td ON tc.menuitemid=td.id
+WHERE 1=1 AND ta.`status`=1 AND tb.status<>3
+GROUP BY ta.id
+ORDER BY ta.id ASC');	
 	    	}
 	    	else
 	    	{
-	    		$result = DB::select('SELECT ta.*,IFNULL((SELECT number FROM mantadia_orders WHERE 1=1 AND `status`<>3 AND tablesid=ta.id), 0) AS meal_number,
-(SELECT id FROM mantadia_orders WHERE 1=1 AND `status`<>3 AND tablesid=ta.id) AS orderId
-FROM mantadia_tables ta 
-WHERE 1=1 AND ta.`status`=1 AND ta.`type`=:type', ['type' => $type]);
+	    		$result = DB::select('SELECT ta.*,tb.id AS orderId,tb.number AS meal_number,SUM(tc.number*td.price) AS orderTotalPrice
+FROM mantadia_tables ta
+LEFT JOIN mantadia_orders tb ON ta.id=tb.tablesid
+LEFT JOIN mantadia_orderitem tc ON tb.id=tc.ordersid
+LEFT JOIN mantadia_menuitem td ON tc.menuitemid=td.id
+WHERE 1=1 AND ta.`status`=1 AND tb.status<>3 AND ta.type=:type
+GROUP BY ta.id
+ORDER BY ta.id ASC', ['type' => $type]);
 	    	}
 	    	
 	    	if ( count($result) != 0 )
