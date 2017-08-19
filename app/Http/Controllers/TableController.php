@@ -379,6 +379,42 @@ ORDER BY ta.id ASC', ['type' => $type]);
 	    		return $this->output(Response::WRONG_OPERATION);
 	    	}
 	    }
+	    
+	    
+	    //获取正在使用的餐桌，phone端,checkout页面用
+	    public function getUsingTableForCheckout ( $tableId )
+	    {
+	    	if ( $tableId == 0 )
+	    	{
+	    		$result = DB::select('SELECT ta.*,tb.id AS orderId,tb.number AS meal_number,SUM(tc.number*td.price) AS orderTotalPrice
+FROM mantadia_tables ta
+LEFT JOIN mantadia_orders tb ON ta.id=tb.tablesid
+LEFT JOIN mantadia_orderitem tc ON tb.id=tc.ordersid
+LEFT JOIN mantadia_menuitem td ON tc.menuitemid=td.id
+WHERE 1=1 AND ta.`status`=1 AND tb.status<>3
+GROUP BY ta.id
+ORDER BY ta.id ASC');
+	    	}
+	    	else
+	    	{
+	    		$result = DB::select('SELECT ta.*,tb.id AS orderId,tb.number AS meal_number,SUM(tc.number*td.price) AS orderTotalPrice
+FROM mantadia_tables ta
+LEFT JOIN mantadia_orders tb ON ta.id=tb.tablesid
+LEFT JOIN mantadia_orderitem tc ON tb.id=tc.ordersid
+LEFT JOIN mantadia_menuitem td ON tc.menuitemid=td.id
+WHERE 1=1 AND ta.`status`=1 AND tb.status<>3 AND ta.id=:id
+GROUP BY ta.id
+ORDER BY ta.id ASC', ['id' => $tableId]);
+	    }
+			if ( $result > 0 )
+			{
+				return $this->output(Response::SUCCESS, $result);
+			}
+			else
+			{
+				return $this->output(Response::NO_MORE_INFO);
+			}
+	    }
 
 	    
 	}
