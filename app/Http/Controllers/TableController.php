@@ -282,11 +282,17 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 	    {
 	    	if ( $type == 3 )
 	    	{
-	    		$result = DB::select('SELECT ta.*,IFNULL((SELECT number FROM mantadia_orders WHERE 1=1 AND `status`<>3 AND tablesid=ta.id), 0) AS meal_number FROM mantadia_tables ta WHERE 1=1 AND ta.`status`=1');	
+	    		$result = DB::select('SELECT ta.*,IFNULL((SELECT number FROM mantadia_orders WHERE 1=1 AND `status`<>3 AND tablesid=ta.id), 0) AS meal_number,
+(SELECT id FROM mantadia_orders WHERE 1=1 AND `status`<>3 AND tablesid=ta.id) AS orderId
+FROM mantadia_tables ta 
+WHERE 1=1 AND ta.`status`=1');	
 	    	}
 	    	else
 	    	{
-	    		$result = DB::select('SELECT ta.*,IFNULL((SELECT number FROM mantadia_orders WHERE 1=1 AND `status`<>3 AND tablesid=ta.id), 0) AS meal_number FROM mantadia_tables ta WHERE 1=1 AND ta.`status`=1 AND ta.`type`=:type', ['type' => $type]);
+	    		$result = DB::select('SELECT ta.*,IFNULL((SELECT number FROM mantadia_orders WHERE 1=1 AND `status`<>3 AND tablesid=ta.id), 0) AS meal_number,
+(SELECT id FROM mantadia_orders WHERE 1=1 AND `status`<>3 AND tablesid=ta.id) AS orderId
+FROM mantadia_tables ta 
+WHERE 1=1 AND ta.`status`=1 AND ta.`type`=:type', ['type' => $type]);
 	    	}
 	    	
 	    	if ( count($result) != 0 )
