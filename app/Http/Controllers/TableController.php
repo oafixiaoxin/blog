@@ -417,5 +417,20 @@ ORDER BY ta.id ASC', ['id' => $tableId]);
 	    }
 
 	    
+	    //获取订单详情,phone端
+	    public function getOrderDetail ( $orderId )
+	    {
+	    	$result = DB::select('SELECT ta.*,tb.`name`,tb.`price` FROM mantadia_orderitem ta 
+LEFT JOIN mantadia_menuitem tb ON ta.menuitemid=tb.id
+WHERE 1=1 AND ta.ordersid=:ordersid', ['ordersid' => $orderId]);
+			if ( count($result) > 0 )
+			{
+				return $this->output(Response::SUCCESS, $result);
+			}
+			else
+			{
+				return $this->output(Response::NO_MORE_INFO);
+			}
+	    }
 	}
 

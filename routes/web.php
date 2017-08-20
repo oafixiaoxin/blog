@@ -34,6 +34,7 @@ $app->group(['prefix' => 'api2/v1'], function($app)
 	$app->get('/getUsingTable/{type}', 'TableController@getUsingTable');
 	$app->get('/getEmptyTablesByType/{type}', 'TableController@getEmptyTablesByType');
 	$app->get('/getUsingTableForCheckout/{tableId}', 'TableController@getUsingTableForCheckout');
+	$app->get('/getOrderDetail/{orderId}', 'TableController@getOrderDetail');
 	
 	$app->post('/sendOrder', 'TableController@sendOrder');
 	$app->post('/uploadImage', 'ImageController@uploadImage');
