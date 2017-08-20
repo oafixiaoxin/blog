@@ -432,5 +432,38 @@ WHERE 1=1 AND ta.ordersid=:ordersid', ['ordersid' => $orderId]);
 				return $this->output(Response::NO_MORE_INFO);
 			}
 	    }
+	    
+	    
+	    //结账, phone端
+	    public function checkout ( Request $request )
+	    {
+	    	$tableId = $request->input('tableId');
+	    	$orderId = $request->input('orderId');
+	    	$income = $request->input('income');
+	    	$currentTime = date('Y-m-d H:i:s');
+	    	
+	    	//开启事务
+	    	DB::beginTransaction();
+	    	$result = DB::update('update mantadia_orders set `status`=3 and `income`=:income and `checkouttime`=:checkouttime where 1=1 and `id`=:id', ['income' => $income, 'checkouttime' => $currentTime, 'id' => $orderId]);
+	    	if ( $result == 1 )
+	    	{
+	    		$result1 = DB::update('update mantadia_tables set `status`=0 where 1=1 and `id`=:id', ['id' => $tableId]);
+	    		if ( $result1 == 1 )
+	    		{
+	    			DB::commit();
+	    			return $this->output(Response::SUCCESS, '结账成功');
+	    		}
+	    		else
+	    		{
+	    			DB::rollback();
+	    			return $this->output(Response::CHECKOUT_FAILED);	
+	    		}
+	    	}
+	    	else
+	    	{
+	    		DB::rollback();
+	    		return $this->output(Response::CHECKOUT_FAILED);
+	    	}
+	    }
 	}
 

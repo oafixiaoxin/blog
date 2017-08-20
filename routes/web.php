@@ -39,4 +39,5 @@ $app->group(['prefix' => 'api2/v1'], function($app)
 	$app->post('/sendOrder', 'TableController@sendOrder');
 	$app->post('/uploadImage', 'ImageController@uploadImage');
 	$app->post('/changeTable', 'TableController@changeTable');
+	$app->post('/checkout', 'TableController@checkout');
 });
