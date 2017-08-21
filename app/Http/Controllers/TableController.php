@@ -444,7 +444,7 @@ WHERE 1=1 AND ta.ordersid=:ordersid', ['ordersid' => $orderId]);
 	    	
 	    	//开启事务
 	    	DB::beginTransaction();
-	    	$result = DB::update('update mantadia_orders set `status`=3 and `income`=:income and `checkouttime`=:checkouttime where 1=1 and `id`=:id', ['income' => $income, 'checkouttime' => $currentTime, 'id' => $orderId]);
+	    	$result = DB::update('update mantadia_orders set `status`=3, `income`=:income, `checkouttime`=:checkouttime where 1=1 and `id`=:id', ['income' => $income, 'checkouttime' => $currentTime, 'id' => $orderId]);
 	    	if ( $result == 1 )
 	    	{
 	    		$result1 = DB::update('update mantadia_tables set `status`=0 where 1=1 and `id`=:id', ['id' => $tableId]);
