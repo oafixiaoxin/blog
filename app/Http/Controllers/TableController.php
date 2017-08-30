@@ -226,7 +226,7 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 	    public function getUserInfo ( $userId )
 	    {
 //	    	$userInfo = DB::table('mantadia_user')->where('id', $userId)->get();
-			$userInfo = DB::select('SELECT ta.*,tb.filename FROM mantadia_user ta
+			$userInfo = DB::select('SELECT ta.*,IFNULL(tb.filename, "") AS filename FROM mantadia_user ta
 LEFT JOIN mantadia_image tb ON ta.imageid=tb.id where 1=1 and ta.id=:id', ['id' => $userId]);
 	    	if ( isset($userInfo) )
 	    	{
