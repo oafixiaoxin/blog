@@ -225,10 +225,12 @@ WHERE 1=1 AND ta.`id`=?', [$id]);
 	    //获取用户信息
 	    public function getUserInfo ( $userId )
 	    {
-	    	$userInfo = DB::table('mantadia_user')->where('id', $userId)->first();
+//	    	$userInfo = DB::table('mantadia_user')->where('id', $userId)->get();
+			$userInfo = DB::select('SELECT ta.*,tb.filename FROM mantadia_user ta
+LEFT JOIN mantadia_image tb ON ta.imageid=tb.id where 1=1 and ta.id=:id', ['id' => $userId]);
 	    	if ( isset($userInfo) )
 	    	{
-	    		return $this->output(Response::SUCCESS, $userInfo);
+	    		return $this->output(Response::SUCCESS, $userInfo[0]);
 	    	}
 	    	else
 	    	{
@@ -465,5 +467,14 @@ WHERE 1=1 AND ta.ordersid=:ordersid', ['ordersid' => $orderId]);
 	    		return $this->output(Response::CHECKOUT_FAILED);
 	    	}
 	    }
+	    
+	    
+	    //加菜, phone端
+//	    public function addMenu ( Request $request )
+//	    {
+//	    	$selectedMenu = $request->input('selectedMenu');
+//	    	$orderId = $request->input('orderId');
+//	    	
+//	    }
 	}
 
