@@ -13,7 +13,7 @@
 */
 
 $app->get('/', function () use ($app) {
-    return "yanshuxin:";
+    return "yanshuxin";
 });
 
 //$app->get('/user', 'ExampleController@user');
